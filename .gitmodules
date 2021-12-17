@@ -1,0 +1,10 @@
+[submodule "HelloEngine/3rdParty/spdlog"]
+	path = HelloEngine/3rdParty/spdlog
+	url = https://github.com.cnpmjs.org/gabime/spdlog
+[submodule "HelloEngine/3rdParty/GLFW"]
+	path = HelloEngine/3rdParty/GLFW
+	url = https://github.com.cnpmjs.org/TheCherno/glfw
+[submodule "HelloEngine/3rdParty/imgui"]
+	path = HelloEngine/3rdParty/imgui
+	url = https://github.com/TheCherno/imgui
+	branch = master

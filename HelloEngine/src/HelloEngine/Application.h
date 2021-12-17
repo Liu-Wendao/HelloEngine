@@ -1,6 +1,9 @@
 #pragma once
 
-#include "Core.h"
+#include "HelloEngine/Core.h"
+#include "HelloEngine/Window.h"
+#include "HelloEngine/LayerStack.h"
+#include "HelloEngine/Events/ApplicationEvent.h"
 
 namespace HelloEngine
 { 
@@ -9,8 +12,26 @@ namespace HelloEngine
 	public:
 		Application();
 		virtual ~Application();
-
+		
 		void Run();
+
+		void OnEvent(Event& e);
+
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* overlay);
+
+		inline Window& GetWindow() { return *m_Window; }
+		
+		inline static Application& Get() { return *s_Instance; }
+	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+	private:
+		std::unique_ptr<Window> m_Window;
+		bool m_Running = true;
+
+		LayerStack m_LayerStack;
+	private:
+		static Application* s_Instance;
 	};
 
 	//在客户端定义该函数 
