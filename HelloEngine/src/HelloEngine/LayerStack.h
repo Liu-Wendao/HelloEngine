@@ -8,7 +8,7 @@ namespace HelloEngine
 	class HelloEngine_API LayerStack
 	{
 	public:
-		LayerStack() = default;
+		LayerStack();
 		~LayerStack();
 
 		void PushLayer(Layer* layer);		

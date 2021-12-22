@@ -5,6 +5,8 @@
 #include "HelloEngine/LayerStack.h"
 #include "HelloEngine/Events/ApplicationEvent.h"
 
+#include "HelloEngine/ImGui/ImGuiLayer.h"
+
 namespace HelloEngine
 { 
 	class HelloEngine_API Application
@@ -29,6 +31,7 @@ namespace HelloEngine
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 
+		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 	private:
 		static Application* s_Instance;

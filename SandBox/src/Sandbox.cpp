@@ -1,6 +1,7 @@
 #include "hepch.h"
 #include "HelloEngine.h"
 
+#include "imgui/imgui.h"
 class ExampleLayer : public HelloEngine::Layer
 {
 public:
@@ -14,6 +15,13 @@ public:
 	{
 		if (HelloEngine::Input::IsKeyPressed(HE_KEY_TAB))
 			HE_CLIENT_TRACE("Tab key is pressed (poll)!");
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello Engine!");
+		ImGui::End();
 	}
 
 	virtual void OnEvent(HelloEngine::Event& event) override
@@ -35,7 +43,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new HelloEngine::ImGuiLayer());
 	}
 	~Sandbox()
 	{

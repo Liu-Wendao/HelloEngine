@@ -4,9 +4,9 @@
 [submodule "HelloEngine/3rdParty/GLFW"]
 	path = HelloEngine/3rdParty/GLFW
 	url = https://github.com/TheCherno/glfw
-[submodule "HelloEngine/3rdParty/imgui"]
-	path = HelloEngine/3rdParty/imgui
-	url = https://github.com/TheCherno/imgui
 [submodule "HelloEngine/3rdParty/glm"]
 	path = HelloEngine/3rdParty/glm
 	url = https://github.com/g-truc/glm
+[submodule "HelloEngine/3rdParty/imgui"]
+	path = HelloEngine/3rdParty/imgui
+	url = https://github.com/TheCherno/imgui

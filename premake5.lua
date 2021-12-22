@@ -16,9 +16,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- 包含的第三方库 
 IncludeDirs_3rdParty = {}
+IncludeDirs_3rdParty["spdlog"] = "HelloEngine/3rdParty/spdlog/include"
 IncludeDirs_3rdParty["GLFW"] = "HelloEngine/3rdParty/GLFW/include"
 IncludeDirs_3rdParty["Glad"] = "HelloEngine/3rdParty/Glad/include"
 IncludeDirs_3rdParty["ImGui"] = "HelloEngine/3rdParty/imgui"
+IncludeDirs_3rdParty["glm"] = "HelloEngine/3rdParty/glm"
 
 include "HelloEngine/3rdParty/GLFW"
 include "HelloEngine/3rdParty/Glad"
@@ -40,16 +42,19 @@ project "HelloEngine"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/3rdParty/glm/glm/**.hpp",
+		"%{prj.name}/3rdParty/glm/glm/**.inl"
 	}
 
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/3rdParty/spdlog/include",
+		"%{IncludeDirs_3rdParty.spdlog}",
 		"%{IncludeDirs_3rdParty.GLFW}",
 		"%{IncludeDirs_3rdParty.Glad}",
-		"%{IncludeDirs_3rdParty.ImGui}"
+		"%{IncludeDirs_3rdParty.ImGui}",
+		"%{IncludeDirs_3rdParty.glm}"
 	}
 
 	links
@@ -110,8 +115,9 @@ project "Sandbox"
 	includedirs
 	{
 		"HelloEngine/src",
-		"HelloEngine/3rdParty/spdlog/include"
-		
+		"%{IncludeDirs_3rdParty.spdlog}",
+		"%{IncludeDirs_3rdParty.glm}",
+		"HelloEngine/3rdParty"
 	}
 
 	links
