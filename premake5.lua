@@ -29,9 +29,10 @@ include "HelloEngine/3rdParty/imgui"
 -- 项目设置 ------- 引擎项目
 project "HelloEngine"
 	location "HelloEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++17"
+	staticruntime "On"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
@@ -57,6 +58,11 @@ project "HelloEngine"
 		"%{IncludeDirs_3rdParty.glm}"
 	}
 
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
 	links
 	{
 		"GLFW",
@@ -66,7 +72,6 @@ project "HelloEngine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 		defines
 		{
@@ -74,11 +79,6 @@ project "HelloEngine"
 			"HE_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
-
-	postbuildcommands
-	{
-		("{COPY} %{cfg.buildtarget.relpath} \"../bin/"..outputdir.."/Sandbox/\"")
-	}
 
 	filter "configurations:Debug"
 		defines "HE_DEBUG"
@@ -101,7 +101,8 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++17"
+	staticruntime "On"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
@@ -115,9 +116,9 @@ project "Sandbox"
 	includedirs
 	{
 		"HelloEngine/src",
+		"HelloEngine/3rdParty",
 		"%{IncludeDirs_3rdParty.spdlog}",
-		"%{IncludeDirs_3rdParty.glm}",
-		"HelloEngine/3rdParty"
+		"%{IncludeDirs_3rdParty.glm}"
 	}
 
 	links
@@ -126,7 +127,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
