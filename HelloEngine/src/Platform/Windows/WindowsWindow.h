@@ -1,6 +1,7 @@
 #pragma once
 
 #include "HelloEngine/Window.h"
+#include "HelloEngine/Renderer/GraphicsContext.h"
 
 #include "GLFW/glfw3.h"
 
@@ -29,6 +30,7 @@ namespace HelloEngine
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

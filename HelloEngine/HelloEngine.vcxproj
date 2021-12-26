@@ -555,6 +555,7 @@
     <ClInclude Include="3rdParty\glm\glm\vec3.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vec4.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vector_relational.hpp" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\HelloEngine.h" />
     <ClInclude Include="src\HelloEngine\Application.h" />
     <ClInclude Include="src\HelloEngine\Core.h" />
@@ -570,12 +571,14 @@
     <ClInclude Include="src\HelloEngine\LayerStack.h" />
     <ClInclude Include="src\HelloEngine\Log.h" />
     <ClInclude Include="src\HelloEngine\MouseButtonCodes.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\HelloEngine\Window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\hepch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\HelloEngine\Application.cpp" />
     <ClCompile Include="src\HelloEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\HelloEngine\ImGui\ImGuiLayer.cpp" />
