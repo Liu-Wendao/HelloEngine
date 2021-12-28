@@ -22,9 +22,12 @@ IncludeDirs_3rdParty["Glad"] = "HelloEngine/3rdParty/Glad/include"
 IncludeDirs_3rdParty["ImGui"] = "HelloEngine/3rdParty/imgui"
 IncludeDirs_3rdParty["glm"] = "HelloEngine/3rdParty/glm"
 
-include "HelloEngine/3rdParty/GLFW"
-include "HelloEngine/3rdParty/Glad"
-include "HelloEngine/3rdParty/imgui"
+group "Dependencies"
+	include "HelloEngine/3rdParty/GLFW"
+	include "HelloEngine/3rdParty/Glad"
+	include "HelloEngine/3rdParty/imgui"
+
+group ""
 
 -- 项目设置 ------- 引擎项目
 project "HelloEngine"

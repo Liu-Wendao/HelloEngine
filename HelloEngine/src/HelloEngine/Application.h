@@ -3,9 +3,12 @@
 #include "HelloEngine/Core.h"
 #include "HelloEngine/Window.h"
 #include "HelloEngine/LayerStack.h"
+#include "HelloEngine/Events/Event.h"
 #include "HelloEngine/Events/ApplicationEvent.h"
 
 #include "HelloEngine/ImGui/ImGuiLayer.h"
+
+#include "HelloEngine/Renderer/Shader.h"
 
 namespace HelloEngine
 { 
@@ -35,6 +38,7 @@ namespace HelloEngine
 		LayerStack m_LayerStack;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 	private:
 		static Application* s_Instance;
 	};
