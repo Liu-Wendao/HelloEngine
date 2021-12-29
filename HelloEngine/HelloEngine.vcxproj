@@ -555,6 +555,9 @@
     <ClInclude Include="3rdParty\glm\glm\vec3.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vec4.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vector_relational.hpp" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\Buffer.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\Renderer.h" />
     <ClInclude Include="src\HelloEngine\Renderer\Shader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\HelloEngine.h" />
@@ -579,6 +582,9 @@
     <ClInclude Include="src\hepch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\Renderer.cpp" />
     <ClCompile Include="src\HelloEngine\Renderer\Shader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\HelloEngine\Application.cpp" />

@@ -1347,6 +1347,9 @@
     <ClInclude Include="src\HelloEngine\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\HelloEngine\Renderer\Shader.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\Buffer.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\HelloEngine\Application.cpp">
@@ -1378,5 +1381,8 @@
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\HelloEngine\Renderer\Shader.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
   </ItemGroup>
 </Project>
