@@ -555,6 +555,7 @@
     <ClInclude Include="3rdParty\glm\glm\vec3.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vec4.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vector_relational.hpp" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\HelloEngine.h" />
     <ClInclude Include="src\HelloEngine\Application.h" />
     <ClInclude Include="src\HelloEngine\Core.h" />
@@ -580,8 +581,10 @@
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\hepch.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\HelloEngine\Application.cpp" />
     <ClCompile Include="src\HelloEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\HelloEngine\ImGui\ImGuiLayer.cpp" />
@@ -598,6 +601,7 @@
     <ClCompile Include="src\hepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="3rdParty\GLFW\GLFW.vcxproj">

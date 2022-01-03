@@ -1368,6 +1368,8 @@
     <ClInclude Include="src\hepch.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\HelloEngine\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\HelloEngine\Application.cpp">
@@ -1412,5 +1414,7 @@
     <ClCompile Include="src\hepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 
 #include "HelloEngine/Renderer/Shader.h"
 #include "HelloEngine/Renderer/Buffer.h"
+#include "HelloEngine/Renderer/VertexArray.h"
 
 namespace HelloEngine
 { 
@@ -32,16 +33,17 @@ namespace HelloEngine
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 	private:
-		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 
+		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray;
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+
+		std::shared_ptr<Shader> m_BlueShader;
+		std::shared_ptr<VertexArray> m_BlueVertexArray;
 	private:
 		static Application* s_Instance;
 	};

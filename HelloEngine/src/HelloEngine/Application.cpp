@@ -1,36 +1,13 @@
 #include "hepch.h"
 #include "Application.h"
 
-#include "HelloEngine/Events/ApplicationEvent.h"
 #include "HelloEngine/Log.h"
 
 #include "glad/glad.h"
 
-
 namespace HelloEngine
 {	
 	Application* Application::s_Instance = nullptr; 
-
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-			case HelloEngine::ShaderDataType::Float:    return GL_FLOAT;
-			case HelloEngine::ShaderDataType::Float2:   return GL_FLOAT;
-			case HelloEngine::ShaderDataType::Float3:   return GL_FLOAT;
-			case HelloEngine::ShaderDataType::Float4:   return GL_FLOAT;
-			case HelloEngine::ShaderDataType::Int:      return GL_INT;
-			case HelloEngine::ShaderDataType::Int2:	    return GL_INT;
-			case HelloEngine::ShaderDataType::Int3:	    return GL_INT;
-			case HelloEngine::ShaderDataType::Int4:	    return GL_INT;
-			case HelloEngine::ShaderDataType::Mat3:     return GL_FLOAT;
-			case HelloEngine::ShaderDataType::Mat4:     return GL_FLOAT;
-			case HelloEngine::ShaderDataType::Bool:     return GL_BOOL;
-		}
-
-		HE_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
 
 	Application::Application()
 	{
@@ -43,8 +20,7 @@ namespace HelloEngine
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -52,35 +28,21 @@ namespace HelloEngine
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		{
-			BufferLayout layout = {
-				{ShaderDataType::Float3, "a_Position"},
-				{ShaderDataType::Float4, "a_Color"}
-			};
-
-			m_VertexBuffer->SetLayout(layout);
-		}
-
-		uint32_t index = 0;
-		uint32_t stride = m_VertexBuffer->GetLayout().GetStride();
-		const auto& bufferElements = m_VertexBuffer->GetLayout().GetElements();
-		for (const auto& element : bufferElements)
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, 
-				element.GetComponentCount(), 
-				ShaderDataTypeToOpenGLBaseType(element.Type), 
-				GL_FALSE, 
-				stride, 
-				(void*)element.Offset);
-			index++;
-		}
+		BufferLayout layout = {
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float4, "a_Color"}
+		};
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-
+		std::shared_ptr<IndexBuffer> indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
+		
 		std::string vertexShaderSrc = R"(
 			#version 330 core
 
@@ -114,6 +76,54 @@ namespace HelloEngine
 		)";
 
 		m_Shader.reset(new Shader(vertexShaderSrc, fragmentShaderSrc));
+	
+		float blueVertices[3 * 4] = {
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f
+		};
+
+		m_BlueVertexArray.reset(VertexArray::Create());
+
+		std::shared_ptr<VertexBuffer> blueVertexbuffer(VertexBuffer::Create(blueVertices, sizeof(blueVertices)));
+		blueVertexbuffer->SetLayout({
+			{ ShaderDataType::Float3, "aPosition" }
+		});
+		m_BlueVertexArray->AddVertexBuffer(blueVertexbuffer);
+
+		uint32_t blueIndices[6] = { 0,1,2,2,3,0 };
+		std::shared_ptr<IndexBuffer> blueIndexbuffer(IndexBuffer::Create(blueIndices, sizeof(blueIndices) / sizeof(uint32_t)));
+		m_BlueVertexArray->SetIndexBuffer(blueIndexbuffer);
+
+		std::string blueVertexShaderSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string blueFragmentShaderSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main()
+			{
+				color = vec4(0.2, 0.3, 0.8, 1.0);
+			}
+		)";
+
+		m_BlueShader = std::make_shared<Shader>(blueVertexShaderSrc, blueFragmentShaderSrc);	
 	}
 
 	Application::~Application()
@@ -153,9 +163,13 @@ namespace HelloEngine
 			glClearColor(0.1f, 0.1f, 0.1f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			m_BlueShader->Bind();
+			m_BlueVertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_BlueVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
 			m_Shader->Bind();
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			m_VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
