@@ -18,10 +18,6 @@ namespace HelloEngine
 	{
 	}
 
-	ImGuiLayer::~ImGuiLayer()
-	{
-	}
-
 	void ImGuiLayer::OnAttach()
 	{
 		//设置ImGui上下文
