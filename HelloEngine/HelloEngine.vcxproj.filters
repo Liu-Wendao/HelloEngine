@@ -1370,6 +1370,10 @@
     </ClInclude>
     <ClInclude Include="src\HelloEngine\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\HelloEngine\Application.cpp">
@@ -1416,5 +1420,9 @@
     </ClCompile>
     <ClCompile Include="src\HelloEngine\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\Camera.cpp" />
   </ItemGroup>
 </Project>

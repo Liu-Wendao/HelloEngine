@@ -555,6 +555,7 @@
     <ClInclude Include="3rdParty\glm\glm\vec3.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vec4.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vector_relational.hpp" />
+    <ClInclude Include="src\HelloEngine\Renderer\Camera.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\HelloEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\HelloEngine\Renderer\RendererAPI.h" />
@@ -587,6 +588,7 @@
     <ClInclude Include="src\HelloEngine\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\HelloEngine\Renderer\Camera.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\HelloEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\HelloEngine\Renderer\RendererAPI.cpp" />

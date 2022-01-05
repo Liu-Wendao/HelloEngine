@@ -11,6 +11,7 @@
 #include "HelloEngine/Renderer/Shader.h"
 #include "HelloEngine/Renderer/Buffer.h"
 #include "HelloEngine/Renderer/VertexArray.h"
+#include "HelloEngine/Renderer/Camera.h"
 
 namespace HelloEngine
 { 
@@ -44,6 +45,8 @@ namespace HelloEngine
 
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_BlueVertexArray;
+
+		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};
