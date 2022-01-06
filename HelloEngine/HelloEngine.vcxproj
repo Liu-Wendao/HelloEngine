@@ -555,6 +555,7 @@
     <ClInclude Include="3rdParty\glm\glm\vec3.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vec4.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vector_relational.hpp" />
+    <ClInclude Include="src\HelloEngine\Core\Timestep.h" />
     <ClInclude Include="src\HelloEngine\Renderer\Camera.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\HelloEngine\Renderer\RenderCommand.h" />

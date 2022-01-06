@@ -1,6 +1,7 @@
 #pragma once
 
 #include "HelloEngine/Core.h"
+#include "HelloEngine/Core/Timestep.h"
 #include "HelloEngine/Events/Event.h"
 
 namespace HelloEngine
@@ -13,7 +14,7 @@ namespace HelloEngine
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(const Timestep& ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

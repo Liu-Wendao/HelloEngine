@@ -8,11 +8,6 @@
 
 #include "HelloEngine/ImGui/ImGuiLayer.h"
 
-#include "HelloEngine/Renderer/Shader.h"
-#include "HelloEngine/Renderer/Buffer.h"
-#include "HelloEngine/Renderer/VertexArray.h"
-#include "HelloEngine/Renderer/Camera.h"
-
 namespace HelloEngine
 { 
 	class HelloEngine_API Application
@@ -40,13 +35,7 @@ namespace HelloEngine
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_BlueVertexArray;
-
-		OrthographicCamera m_Camera;
+		float m_LastFrameTime = 0.0f;
 	private:
 		static Application* s_Instance;
 	};
