@@ -1,5 +1,10 @@
 #include "hepch.h"
+
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "HelloEngine.h"
+#include "Platform/OpenGL/OpenGLShader.h"
 
 #include "imgui/imgui.h"
 class ExampleLayer : public HelloEngine::Layer
@@ -38,6 +43,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -46,7 +52,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -65,57 +71,59 @@ public:
 			}
 		)";
 
-		m_Shader.reset(new HelloEngine::Shader(vertexShaderSrc, fragmentShaderSrc));
+		m_Shader.reset(HelloEngine::Shader::Create(vertexShaderSrc, fragmentShaderSrc));
 
-		float blueVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+		float FlatColorVertices[3 * 4] = {
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
-		m_BlueVertexArray.reset(HelloEngine::VertexArray::Create());
+		m_FlatColorVertexArray.reset(HelloEngine::VertexArray::Create());
 
-		std::shared_ptr<HelloEngine::VertexBuffer> blueVertexbuffer(HelloEngine::VertexBuffer::Create(blueVertices, sizeof(blueVertices)));
-		blueVertexbuffer->SetLayout({
+		std::shared_ptr<HelloEngine::VertexBuffer> FlatColorVertexbuffer(HelloEngine::VertexBuffer::Create(FlatColorVertices, sizeof(FlatColorVertices)));
+		FlatColorVertexbuffer->SetLayout({
 			{ HelloEngine::ShaderDataType::Float3, "aPosition" }
 			});
-		m_BlueVertexArray->AddVertexBuffer(blueVertexbuffer);
+		m_FlatColorVertexArray->AddVertexBuffer(FlatColorVertexbuffer);
 
-		uint32_t blueIndices[6] = { 0,1,2,2,3,0 };
-		std::shared_ptr<HelloEngine::IndexBuffer> blueIndexbuffer(HelloEngine::IndexBuffer::Create(blueIndices, sizeof(blueIndices) / sizeof(uint32_t)));
-		m_BlueVertexArray->SetIndexBuffer(blueIndexbuffer);
+		uint32_t FlatColorIndices[6] = { 0,1,2,2,3,0 };
+		std::shared_ptr<HelloEngine::IndexBuffer> FlatColorIndexbuffer(HelloEngine::IndexBuffer::Create(FlatColorIndices, sizeof(FlatColorIndices) / sizeof(uint32_t)));
+		m_FlatColorVertexArray->SetIndexBuffer(FlatColorIndexbuffer);
 
-		std::string blueVertexShaderSrc = R"(
+		std::string FlatColorVertexShaderSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
 			}
 		)";
 
-		std::string blueFragmentShaderSrc = R"(
+		std::string FlatColorFragmentShaderSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
+			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
-		m_BlueShader = std::make_shared<HelloEngine::Shader>(blueVertexShaderSrc, blueFragmentShaderSrc);
+		m_FlatColorShader.reset(HelloEngine::Shader::Create(FlatColorVertexShaderSrc, FlatColorFragmentShaderSrc));
 	}
 
 	virtual void OnUpdate(const HelloEngine::Timestep& ts) override
@@ -143,7 +151,21 @@ public:
 
 		HelloEngine::Renderer::BeginScene(m_Camera);
 
-		HelloEngine::Renderer::Submit(m_BlueShader, m_BlueVertexArray);
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_FlatColorShader)->Bind();
+		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_FlatColor);
+
+		for (int y = 0; y < 20; y++)
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				HelloEngine::Renderer::Submit(m_FlatColorShader, m_FlatColorVertexArray, transform);
+			}
+		}
+
 		HelloEngine::Renderer::Submit(m_Shader, m_VertexArray);
 
 		HelloEngine::Renderer::EndScene();
@@ -151,6 +173,9 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
+		ImGui::Begin("Setting");
+		ImGui::ColorEdit3("Flat Color", glm::value_ptr(m_FlatColor));
+		ImGui::End();
 	}
 
 	virtual void OnEvent(HelloEngine::Event& event) override
@@ -160,8 +185,8 @@ private:
 	std::shared_ptr<HelloEngine::Shader> m_Shader;
 	std::shared_ptr<HelloEngine::VertexArray> m_VertexArray;
 
-	std::shared_ptr<HelloEngine::Shader> m_BlueShader;
-	std::shared_ptr<HelloEngine::VertexArray> m_BlueVertexArray;
+	std::shared_ptr<HelloEngine::Shader> m_FlatColorShader;
+	std::shared_ptr<HelloEngine::VertexArray> m_FlatColorVertexArray;
 
 	HelloEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition = glm::vec3(0.0f);
@@ -169,6 +194,8 @@ private:
 
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 45.0f;
+
+	glm::vec3 m_FlatColor = { 0.2f, 0.3f, 0.8f };
 };
 
 

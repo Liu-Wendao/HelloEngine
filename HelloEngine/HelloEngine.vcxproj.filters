@@ -1375,6 +1375,7 @@
     <ClInclude Include="src\HelloEngine\Renderer\RendererAPI.h" />
     <ClInclude Include="src\HelloEngine\Renderer\Camera.h" />
     <ClInclude Include="src\HelloEngine\Core\Timestep.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\HelloEngine\Application.cpp">
@@ -1425,5 +1426,6 @@
     <ClCompile Include="src\HelloEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\HelloEngine\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\HelloEngine\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>
