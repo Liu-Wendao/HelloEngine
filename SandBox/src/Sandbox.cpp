@@ -21,7 +21,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<HelloEngine::VertexBuffer> vertexBuffer;
+		HelloEngine::Ref<HelloEngine::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(HelloEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		HelloEngine::BufferLayout layout = {
@@ -32,7 +32,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<HelloEngine::IndexBuffer> indexBuffer;
+		HelloEngine::Ref<HelloEngine::IndexBuffer> indexBuffer;
 		indexBuffer.reset(HelloEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -73,38 +73,37 @@ public:
 
 		m_Shader.reset(HelloEngine::Shader::Create(vertexShaderSrc, fragmentShaderSrc));
 
-		float FlatColorVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float FlatColorVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		m_FlatColorVertexArray.reset(HelloEngine::VertexArray::Create());
 
-		std::shared_ptr<HelloEngine::VertexBuffer> FlatColorVertexbuffer(HelloEngine::VertexBuffer::Create(FlatColorVertices, sizeof(FlatColorVertices)));
+		HelloEngine::Ref<HelloEngine::VertexBuffer> FlatColorVertexbuffer(HelloEngine::VertexBuffer::Create(FlatColorVertices, sizeof(FlatColorVertices)));
 		FlatColorVertexbuffer->SetLayout({
-			{ HelloEngine::ShaderDataType::Float3, "aPosition" }
+			{ HelloEngine::ShaderDataType::Float3, "a_Position" },
+			{ HelloEngine::ShaderDataType::Float2, "a_TexCoord" }
 			});
 		m_FlatColorVertexArray->AddVertexBuffer(FlatColorVertexbuffer);
 
 		uint32_t FlatColorIndices[6] = { 0,1,2,2,3,0 };
-		std::shared_ptr<HelloEngine::IndexBuffer> FlatColorIndexbuffer(HelloEngine::IndexBuffer::Create(FlatColorIndices, sizeof(FlatColorIndices) / sizeof(uint32_t)));
+		HelloEngine::Ref<HelloEngine::IndexBuffer> FlatColorIndexbuffer(HelloEngine::IndexBuffer::Create(FlatColorIndices, sizeof(FlatColorIndices) / sizeof(uint32_t)));
 		m_FlatColorVertexArray->SetIndexBuffer(FlatColorIndexbuffer);
 
 		std::string FlatColorVertexShaderSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
 
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
 
-			out vec3 v_Position;
-
 			void main()
 			{
-				v_Position = a_Position;
 				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
 			}
 		)";
@@ -114,16 +113,55 @@ public:
 			
 			layout(location = 0) out vec4 color;
 
-			in vec3 v_Position;
 			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = vec4(u_Color, 1.0);
+				color = vec4(u_Color, 1.0f);
 			}
 		)";
 
 		m_FlatColorShader.reset(HelloEngine::Shader::Create(FlatColorVertexShaderSrc, FlatColorFragmentShaderSrc));
+
+		std::string textureVertexShaderSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string textureFragmentShaderSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(HelloEngine::Shader::Create(textureVertexShaderSrc, textureFragmentShaderSrc));
+
+		m_Texture = HelloEngine::Texture2D::Create("assets/textures/Checkerboard.png");
+
+		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	virtual void OnUpdate(const HelloEngine::Timestep& ts) override
@@ -166,7 +204,11 @@ public:
 			}
 		}
 
-		HelloEngine::Renderer::Submit(m_Shader, m_VertexArray);
+		m_Texture->Bind();
+		HelloEngine::Renderer::Submit(m_TextureShader, m_FlatColorVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		//Èý½ÇÐÎ
+		//HelloEngine::Renderer::Submit(m_Shader, m_VertexArray);
 
 		HelloEngine::Renderer::EndScene();
 	}
@@ -182,11 +224,13 @@ public:
 	{
 	}
 private:
-	std::shared_ptr<HelloEngine::Shader> m_Shader;
-	std::shared_ptr<HelloEngine::VertexArray> m_VertexArray;
+	HelloEngine::Ref<HelloEngine::Shader> m_Shader;
+	HelloEngine::Ref<HelloEngine::VertexArray> m_VertexArray;
 
-	std::shared_ptr<HelloEngine::Shader> m_FlatColorShader;
-	std::shared_ptr<HelloEngine::VertexArray> m_FlatColorVertexArray;
+	HelloEngine::Ref<HelloEngine::Shader> m_FlatColorShader, m_TextureShader;
+	HelloEngine::Ref<HelloEngine::VertexArray> m_FlatColorVertexArray;
+
+	HelloEngine::Ref<HelloEngine::Texture2D> m_Texture;
 
 	HelloEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition = glm::vec3(0.0f);

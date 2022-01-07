@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>hepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HE_PLATFORM_WINDOWS;HE_BUILD_DLL;GLFW_INCLUDE_NONE;HE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty\spdlog\include;3rdParty\GLFW\include;3rdParty\Glad\include;3rdParty\imgui;3rdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty\spdlog\include;3rdParty\GLFW\include;3rdParty\Glad\include;3rdParty\imgui;3rdParty\glm;3rdParty\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeaderFile>hepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HE_PLATFORM_WINDOWS;HE_BUILD_DLL;GLFW_INCLUDE_NONE;HE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty\spdlog\include;3rdParty\GLFW\include;3rdParty\Glad\include;3rdParty\imgui;3rdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty\spdlog\include;3rdParty\GLFW\include;3rdParty\Glad\include;3rdParty\imgui;3rdParty\glm;3rdParty\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -121,7 +121,7 @@
       <PrecompiledHeaderFile>hepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HE_PLATFORM_WINDOWS;HE_BUILD_DLL;GLFW_INCLUDE_NONE;HE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty\spdlog\include;3rdParty\GLFW\include;3rdParty\Glad\include;3rdParty\imgui;3rdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty\spdlog\include;3rdParty\GLFW\include;3rdParty\Glad\include;3rdParty\imgui;3rdParty\glm;3rdParty\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -555,16 +555,11 @@
     <ClInclude Include="3rdParty\glm\glm\vec3.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vec4.hpp" />
     <ClInclude Include="3rdParty\glm\glm\vector_relational.hpp" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="src\HelloEngine\Core\Timestep.h" />
-    <ClInclude Include="src\HelloEngine\Renderer\Camera.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\HelloEngine\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\HelloEngine\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="3rdParty\stb_image\stb_image.h" />
     <ClInclude Include="src\HelloEngine.h" />
     <ClInclude Include="src\HelloEngine\Application.h" />
     <ClInclude Include="src\HelloEngine\Core.h" />
+    <ClInclude Include="src\HelloEngine\Core\Timestep.h" />
     <ClInclude Include="src\HelloEngine\EntryPoint.h" />
     <ClInclude Include="src\HelloEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\HelloEngine\Events\Event.h" />
@@ -578,24 +573,27 @@
     <ClInclude Include="src\HelloEngine\Log.h" />
     <ClInclude Include="src\HelloEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\HelloEngine\Renderer\Buffer.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\Camera.h" />
     <ClInclude Include="src\HelloEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\HelloEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\RendererAPI.h" />
     <ClInclude Include="src\HelloEngine\Renderer\Shader.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\Texture.h" />
+    <ClInclude Include="src\HelloEngine\Renderer\VertexArray.h" />
     <ClInclude Include="src\HelloEngine\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\hepch.h" />
-    <ClInclude Include="src\HelloEngine\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\HelloEngine\Renderer\Camera.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\HelloEngine\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\HelloEngine\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="3rdParty\stb_image\stb_image.cpp" />
     <ClCompile Include="src\HelloEngine\Application.cpp" />
     <ClCompile Include="src\HelloEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\HelloEngine\ImGui\ImGuiLayer.cpp" />
@@ -603,16 +601,24 @@
     <ClCompile Include="src\HelloEngine\LayerStack.cpp" />
     <ClCompile Include="src\HelloEngine\Log.cpp" />
     <ClCompile Include="src\HelloEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\Camera.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\HelloEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\HelloEngine\Renderer\Shader.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\Texture.cpp" />
+    <ClCompile Include="src\HelloEngine\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\hepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\HelloEngine\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="3rdParty\GLFW\GLFW.vcxproj">

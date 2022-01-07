@@ -28,17 +28,17 @@ namespace HelloEngine
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
-		glGenVertexArrays(1, &m_RendererID);
+		glGenVertexArrays(1, &m_VertexArrayID);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
-		glDeleteVertexArrays(1, &m_RendererID);
+		glDeleteVertexArrays(1, &m_VertexArrayID);
 	}
 
 	void OpenGLVertexArray::Bind() const
 	{
-		glBindVertexArray(m_RendererID);
+		glBindVertexArray(m_VertexArrayID);
 	}
 
 	void OpenGLVertexArray::Unbind() const
@@ -50,10 +50,10 @@ namespace HelloEngine
 	{
 		HE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
-		glBindVertexArray(m_RendererID);
+		glBindVertexArray(m_VertexArrayID);
 		vertexBuffer->Bind();
 
-		uint32_t index = 0;
+		int index = 0;
 		uint32_t stride = vertexBuffer->GetLayout().GetStride();
 		const auto& bufferElements = vertexBuffer->GetLayout().GetElements();
 		for (const auto& element : bufferElements)
@@ -64,7 +64,7 @@ namespace HelloEngine
 				ShaderDataTypeToOpenGLBaseType(element.Type),
 				GL_FALSE,
 				stride,
-				(void*)element.Offset);
+				(void*)(intptr_t)element.Offset);
 			index++;
 		}
 
@@ -73,7 +73,7 @@ namespace HelloEngine
 
 	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
 	{
-		glBindVertexArray(m_RendererID);
+		glBindVertexArray(m_VertexArrayID);
 		indexBuffer->Bind();
 
 		m_IndexBuffer = indexBuffer;

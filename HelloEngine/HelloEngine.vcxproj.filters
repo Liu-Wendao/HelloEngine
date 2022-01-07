@@ -22,11 +22,17 @@
     <Filter Include="3rdParty\glm\glm\gtx">
       <UniqueIdentifier>{9E187FF9-8AA7-08C3-33C6-1CBE1F341969}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rdParty\stb_image">
+      <UniqueIdentifier>{389BA67C-247F-67D2-8DDF-612579E25154}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\HelloEngine">
       <UniqueIdentifier>{E6CD3CF7-5259-AABB-5B6A-2DB0C77406BC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\HelloEngine\Core">
+      <UniqueIdentifier>{FE91402A-EA20-CAF3-933F-DEEE7FADDA99}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\HelloEngine\Events">
       <UniqueIdentifier>{0A1BCFC1-F614-F813-DF81-8E24CB1A5E80}</UniqueIdentifier>
@@ -1293,6 +1299,9 @@
     <ClInclude Include="3rdParty\glm\glm\vector_relational.hpp">
       <Filter>3rdParty\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="3rdParty\stb_image\stb_image.h">
+      <Filter>3rdParty\stb_image</Filter>
+    </ClInclude>
     <ClInclude Include="src\HelloEngine.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -1301,6 +1310,9 @@
     </ClInclude>
     <ClInclude Include="src\HelloEngine\Core.h">
       <Filter>src\HelloEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Core\Timestep.h">
+      <Filter>src\HelloEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\HelloEngine\EntryPoint.h">
       <Filter>src\HelloEngine</Filter>
@@ -1341,13 +1353,28 @@
     <ClInclude Include="src\HelloEngine\Renderer\Buffer.h">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\HelloEngine\Renderer\Camera.h">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\HelloEngine\Renderer\GraphicsContext.h">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Renderer\RenderCommand.h">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\HelloEngine\Renderer\Renderer.h">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\HelloEngine\Renderer\RendererAPI.h">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\HelloEngine\Renderer\Shader.h">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Renderer\Texture.h">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Renderer\VertexArray.h">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\HelloEngine\Window.h">
@@ -1359,6 +1386,18 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
@@ -1368,16 +1407,11 @@
     <ClInclude Include="src\hepch.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\HelloEngine\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\HelloEngine\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\HelloEngine\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\HelloEngine\Renderer\Camera.h" />
-    <ClInclude Include="src\HelloEngine\Core\Timestep.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="3rdParty\stb_image\stb_image.cpp">
+      <Filter>3rdParty\stb_image</Filter>
+    </ClCompile>
     <ClCompile Include="src\HelloEngine\Application.cpp">
       <Filter>src\HelloEngine</Filter>
     </ClCompile>
@@ -1399,16 +1433,43 @@
     <ClCompile Include="src\HelloEngine\Renderer\Buffer.cpp">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\Camera.cpp">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\RenderCommand.cpp">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\HelloEngine\Renderer\Renderer.cpp">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\RendererAPI.cpp">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\HelloEngine\Renderer\Shader.cpp">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\Texture.cpp">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\VertexArray.cpp">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
@@ -1420,12 +1481,5 @@
     <ClCompile Include="src\hepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\HelloEngine\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\HelloEngine\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\HelloEngine\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\HelloEngine\Renderer\Camera.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>

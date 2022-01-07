@@ -18,6 +18,7 @@
 
 #include "HelloEngine/Renderer/Buffer.h"
 #include "HelloEngine/Renderer/Shader.h"
+#include "HelloEngine/Renderer/Texture.h"
 #include "HelloEngine/Renderer/VertexArray.h"
 
 #include "HelloEngine/Renderer/Camera.h"

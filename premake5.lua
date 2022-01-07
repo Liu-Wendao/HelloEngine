@@ -21,6 +21,8 @@ IncludeDirs_3rdParty["GLFW"] = "HelloEngine/3rdParty/GLFW/include"
 IncludeDirs_3rdParty["Glad"] = "HelloEngine/3rdParty/Glad/include"
 IncludeDirs_3rdParty["ImGui"] = "HelloEngine/3rdParty/imgui"
 IncludeDirs_3rdParty["glm"] = "HelloEngine/3rdParty/glm"
+IncludeDirs_3rdParty["stb_image"] = "HelloEngine/3rdParty/stb_image"
+
 
 group "Dependencies"
 	include "HelloEngine/3rdParty/GLFW"
@@ -47,6 +49,8 @@ project "HelloEngine"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/3rdParty/stb_image/**.h",
+		"%{prj.name}/3rdParty/stb_image/**.cpp",
 		"%{prj.name}/3rdParty/glm/glm/**.hpp",
 		"%{prj.name}/3rdParty/glm/glm/**.inl"
 	}
@@ -58,7 +62,8 @@ project "HelloEngine"
 		"%{IncludeDirs_3rdParty.GLFW}",
 		"%{IncludeDirs_3rdParty.Glad}",
 		"%{IncludeDirs_3rdParty.ImGui}",
-		"%{IncludeDirs_3rdParty.glm}"
+		"%{IncludeDirs_3rdParty.glm}",
+		"%{IncludeDirs_3rdParty.stb_image}"
 	}
 
 	defines
