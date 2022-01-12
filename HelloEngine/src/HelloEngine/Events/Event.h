@@ -1,5 +1,6 @@
 #pragma once
 
+#include "hepch.h"
 #include "HelloEngine/Core.h"
 
 namespace HelloEngine
@@ -54,18 +55,17 @@ namespace HelloEngine
 	//事件调度器 
 	class HelloEngine_API EventDispatcher
 	{
-		template<typename T>
-		using EventFn = std::function<bool(T&)>;
 	public:
 		EventDispatcher(Event& event)
 			:m_Event(event) {}
 
-		template<typename T>
-		bool Dispatch(const EventFn<T>& func)
+		//F由编译器自动推断 
+		template<typename T, typename F>
+		bool Dispatch(const F& func)
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.handled = func(*(T*)&m_Event);
+				m_Event.handled = func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;

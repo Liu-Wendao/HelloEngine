@@ -53,19 +53,18 @@ namespace HelloEngine
 		glBindVertexArray(m_VertexArrayID);
 		vertexBuffer->Bind();
 
-		int index = 0;
 		uint32_t stride = vertexBuffer->GetLayout().GetStride();
 		const auto& bufferElements = vertexBuffer->GetLayout().GetElements();
 		for (const auto& element : bufferElements)
 		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
+			glEnableVertexAttribArray(m_VertexBufferIndex);
+			glVertexAttribPointer(m_VertexBufferIndex,
 				element.GetComponentCount(),
 				ShaderDataTypeToOpenGLBaseType(element.Type),
-				GL_FALSE,
+				element.Normalized ? GL_TRUE : GL_FALSE,
 				stride,
-				(void*)(intptr_t)element.Offset);
-			index++;
+				(const void*)(intptr_t)element.Offset);
+			m_VertexBufferIndex++;
 		}
 
 		m_VertexBuffers.push_back(vertexBuffer);

@@ -13,6 +13,7 @@ namespace HelloEngine
 			None = 0, OpenGL = 1
 		};
 	public:
+		virtual void Init() const = 0;
 		virtual void SetClearColor(const glm::vec4& color) const = 0;
 		virtual void Clear() const = 0;
 

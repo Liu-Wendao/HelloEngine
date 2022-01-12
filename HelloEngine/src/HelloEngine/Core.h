@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef HE_PLATFORM_WINDOWS
 	#ifdef HE_DYNAMIC_LINK
 		#ifdef HE_BUILD_DLL

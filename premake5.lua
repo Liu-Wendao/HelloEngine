@@ -11,6 +11,10 @@ workspace "HelloEngine"
 		"Dist"
 	}
 
+	{
+		"MultiProcessorCompile"
+	}
+
 -- Р§зг: Debug-Windows-x64
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 

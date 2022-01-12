@@ -6,6 +6,7 @@ namespace HelloEngine
     class OpenGLRendererAPI : public RendererAPI
     {
     public:
+        virtual void Init() const override;
         virtual void SetClearColor(const glm::vec4& color) const override;
         virtual void Clear() const override;
 
