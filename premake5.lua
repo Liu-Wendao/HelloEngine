@@ -11,6 +11,7 @@ workspace "HelloEngine"
 		"Dist"
 	}
 
+	flags
 	{
 		"MultiProcessorCompile"
 	}

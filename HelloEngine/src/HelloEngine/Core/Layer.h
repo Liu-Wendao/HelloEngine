@@ -1,7 +1,7 @@
 #pragma once
 
-#include "HelloEngine/Core.h"
-#include "HelloEngine/Core/Timestep.h"
+#include "Core.h"
+#include "Timestep.h"
 #include "HelloEngine/Events/Event.h"
 
 namespace HelloEngine

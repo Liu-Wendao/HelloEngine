@@ -1,7 +1,7 @@
 #pragma once
 
 #include "hepch.h"
-#include "HelloEngine/Core.h"
+#include "HelloEngine/Core/Core.h"
 
 namespace HelloEngine
 {

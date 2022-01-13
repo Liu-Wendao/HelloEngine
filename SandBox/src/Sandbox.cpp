@@ -11,14 +11,14 @@ class ExampleLayer : public HelloEngine::Layer
 {
 public:
 	ExampleLayer()
-		:Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+		:Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
 		m_VertexArray.reset(HelloEngine::VertexArray::Create());
 
 		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+			-0.5f, -0.5f, -1.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, -1.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.5f, -1.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
 		HelloEngine::Ref<HelloEngine::VertexBuffer> vertexBuffer;
@@ -71,13 +71,13 @@ public:
 			}
 		)";
 
-		m_Shader.reset(HelloEngine::Shader::Create(vertexShaderSrc, fragmentShaderSrc));
+		m_Shader = HelloEngine::Shader::Create("VertexPosColor", vertexShaderSrc, fragmentShaderSrc);
 
 		float FlatColorVertices[5 * 4] = {
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
+			-0.5f, -0.5f, -0.2f, 0.0f, 0.0f,
+			 0.5f, -0.5f, -0.2f, 1.0f, 0.0f,
+			 0.5f,  0.5f, -0.2f, 1.0f, 1.0f,
+			-0.5f,  0.5f, -0.2f, 0.0f, 1.0f
 		};
 
 		m_FlatColorVertexArray.reset(HelloEngine::VertexArray::Create());
@@ -121,42 +121,26 @@ public:
 			}
 		)";
 
-		m_FlatColorShader.reset(HelloEngine::Shader::Create(FlatColorVertexShaderSrc, FlatColorFragmentShaderSrc));
-		m_TextureShader.reset(HelloEngine::Shader::Create("assets/shaders/Texture.glsl"));
+		m_FlatColorShader = HelloEngine::Shader::Create("FlatColorShader", FlatColorVertexShaderSrc, FlatColorFragmentShaderSrc);
+		HelloEngine::Ref<HelloEngine::Shader> textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = HelloEngine::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = HelloEngine::Texture2D::Create("assets/textures/ChernoLogo.png");
 
-		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	virtual void OnUpdate(const HelloEngine::Timestep& ts) override
 	{
-		if (HelloEngine::Input::IsKeyPressed(HE_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-		else if(HelloEngine::Input::IsKeyPressed(HE_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed * ts;
-
-		if (HelloEngine::Input::IsKeyPressed(HE_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed * ts;
-		else if (HelloEngine::Input::IsKeyPressed(HE_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-
-		if (HelloEngine::Input::IsKeyPressed(HE_KEY_A))
-			m_CameraRotation += m_CameraRotationSpeed * ts;
-		else if (HelloEngine::Input::IsKeyPressed(HE_KEY_D))
-			m_CameraRotation -= m_CameraRotationSpeed * ts;
+		m_CameraController.OnUpdate(ts);
 
 		HelloEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		HelloEngine::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
+		HelloEngine::Renderer::BeginScene(m_CameraController.GetCamera());
 
-		HelloEngine::Renderer::BeginScene(m_Camera);
-
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.0f));
 
 		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_FlatColorShader)->Bind();
 		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_FlatColor);
@@ -171,11 +155,12 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.GetShader("Texture");
+
 		m_Texture->Bind();
-		HelloEngine::Renderer::Submit(m_TextureShader, m_FlatColorVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-		
+		HelloEngine::Renderer::Submit(textureShader, m_FlatColorVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		m_ChernoLogoTexture->Bind();
-		HelloEngine::Renderer::Submit(m_TextureShader, m_FlatColorVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		HelloEngine::Renderer::Submit(textureShader, m_FlatColorVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		//Èý½ÇÐÎ
 		//HelloEngine::Renderer::Submit(m_Shader, m_VertexArray);
@@ -190,24 +175,22 @@ public:
 		ImGui::End();
 	}
 
-	virtual void OnEvent(HelloEngine::Event& event) override
+	virtual void OnEvent(HelloEngine::Event& e) override
 	{
+		m_CameraController.OnEvent(e);
 	}
 private:
+	HelloEngine::ShaderLibrary m_ShaderLibrary;
+
 	HelloEngine::Ref<HelloEngine::Shader> m_Shader;
 	HelloEngine::Ref<HelloEngine::VertexArray> m_VertexArray;
 
-	HelloEngine::Ref<HelloEngine::Shader> m_FlatColorShader, m_TextureShader;
+	HelloEngine::Ref<HelloEngine::Shader> m_FlatColorShader;
 	HelloEngine::Ref<HelloEngine::VertexArray> m_FlatColorVertexArray;
 
 	HelloEngine::Ref<HelloEngine::Texture2D> m_Texture, m_ChernoLogoTexture;
 
-	HelloEngine::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition = glm::vec3(0.0f);
-	float m_CameraMoveSpeed = 5.0f;
-
-	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 45.0f;
+	HelloEngine::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_FlatColor = { 0.2f, 0.3f, 0.8f };
 };

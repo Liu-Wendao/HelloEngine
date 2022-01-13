@@ -1,8 +1,8 @@
 #pragma once
 
-#include "HelloEngine/Core.h"
-#include "HelloEngine/Window.h"
-#include "HelloEngine/LayerStack.h"
+#include "Core.h"
+#include "Window.h"
+#include "LayerStack.h"
 #include "HelloEngine/Events/Event.h"
 #include "HelloEngine/Events/ApplicationEvent.h"
 
@@ -28,8 +28,10 @@ namespace HelloEngine
 		inline static Application& Get() { return *s_Instance; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 	private:
 		bool m_Running = true;
+		bool m_Minimized = false;
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;

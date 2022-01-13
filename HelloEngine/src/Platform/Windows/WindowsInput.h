@@ -1,6 +1,6 @@
 #pragma once
 
-#include "HelloEngine/Input.h"
+#include "HelloEngine/Core/Input.h"
 
 namespace HelloEngine
 {

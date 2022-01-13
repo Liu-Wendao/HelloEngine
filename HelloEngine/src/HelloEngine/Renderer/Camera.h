@@ -9,7 +9,9 @@ namespace HelloEngine
 	class OrthographicCamera
 	{
 	public:
-		OrthographicCamera(float left, float right, float bottom, float top);
+		OrthographicCamera(float left, float right, float bottom, float top, float znear = 0.0f, float zfar = 100.0f);
+
+		void SetProjection(float left, float right, float bottom, float top, float znear = 0.0f, float zfar = 100.0f);
 
 		const glm::vec3& GetPosition() const { return m_Position; }
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }

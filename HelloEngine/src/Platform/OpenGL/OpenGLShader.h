@@ -12,11 +12,13 @@ namespace HelloEngine
 	{
 	public:
 		OpenGLShader(const std::string& filepath);
-		OpenGLShader(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc);
+		OpenGLShader(const std::string& name, const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc);
 		virtual ~OpenGLShader();
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual const std::string& GetName() const override { return m_Name; }
 
 		void UploadUniformInt(const std::string& name, int value);
 
@@ -33,6 +35,7 @@ namespace HelloEngine
 		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
 	private:
 		uint32_t m_ShaderID;
+		std::string m_Name;
 	};
 }
 

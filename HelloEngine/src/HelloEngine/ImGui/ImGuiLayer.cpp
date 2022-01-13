@@ -5,11 +5,10 @@
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
 
-#include "HelloEngine/Application.h"
+#include "HelloEngine/Core/Application.h"
 
 //ÁÙÊ±µÄ
 #include "GLFW/glfw3.h"
-#include "glad/glad.h"
 
 namespace HelloEngine
 {

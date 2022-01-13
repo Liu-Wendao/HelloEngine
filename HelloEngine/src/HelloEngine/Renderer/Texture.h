@@ -1,6 +1,6 @@
 #pragma once
 
-#include "HelloEngine/Core.h"
+#include "HelloEngine/Core/Core.h"
 
 namespace HelloEngine
 {

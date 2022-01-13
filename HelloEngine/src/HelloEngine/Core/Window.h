@@ -1,6 +1,6 @@
 #pragma once
 
-#include "HelloEngine/Core.h"
+#include "Core.h"
 #include "HelloEngine/Events/Event.h"
 
 namespace HelloEngine

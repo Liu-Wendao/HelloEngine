@@ -1305,17 +1305,38 @@
     <ClInclude Include="src\HelloEngine.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\HelloEngine\Application.h">
-      <Filter>src\HelloEngine</Filter>
+    <ClInclude Include="src\HelloEngine\Core\Application.h">
+      <Filter>src\HelloEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\HelloEngine\Core.h">
-      <Filter>src\HelloEngine</Filter>
+    <ClInclude Include="src\HelloEngine\Core\Core.h">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Core\EntryPoint.h">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Core\Input.h">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Core\KeyCodes.h">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Core\Layer.h">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Core\LayerStack.h">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Core\Log.h">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Core\MouseButtonCodes.h">
+      <Filter>src\HelloEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\HelloEngine\Core\Timestep.h">
       <Filter>src\HelloEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\HelloEngine\EntryPoint.h">
-      <Filter>src\HelloEngine</Filter>
+    <ClInclude Include="src\HelloEngine\Core\Window.h">
+      <Filter>src\HelloEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\HelloEngine\Events\ApplicationEvent.h">
       <Filter>src\HelloEngine\Events</Filter>
@@ -1332,28 +1353,13 @@
     <ClInclude Include="src\HelloEngine\ImGui\ImGuiLayer.h">
       <Filter>src\HelloEngine\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\HelloEngine\Input.h">
-      <Filter>src\HelloEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\HelloEngine\KeyCodes.h">
-      <Filter>src\HelloEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\HelloEngine\Layer.h">
-      <Filter>src\HelloEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\HelloEngine\LayerStack.h">
-      <Filter>src\HelloEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\HelloEngine\Log.h">
-      <Filter>src\HelloEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\HelloEngine\MouseButtonCodes.h">
-      <Filter>src\HelloEngine</Filter>
-    </ClInclude>
     <ClInclude Include="src\HelloEngine\Renderer\Buffer.h">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\HelloEngine\Renderer\Camera.h">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloEngine\Renderer\CameraController.h">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\HelloEngine\Renderer\GraphicsContext.h">
@@ -1376,9 +1382,6 @@
     </ClInclude>
     <ClInclude Include="src\HelloEngine\Renderer\VertexArray.h">
       <Filter>src\HelloEngine\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\HelloEngine\Window.h">
-      <Filter>src\HelloEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1412,8 +1415,17 @@
     <ClCompile Include="3rdParty\stb_image\stb_image.cpp">
       <Filter>3rdParty\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\HelloEngine\Application.cpp">
-      <Filter>src\HelloEngine</Filter>
+    <ClCompile Include="src\HelloEngine\Core\Application.cpp">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelloEngine\Core\Layer.cpp">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelloEngine\Core\LayerStack.cpp">
+      <Filter>src\HelloEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelloEngine\Core\Log.cpp">
+      <Filter>src\HelloEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\HelloEngine\ImGui\ImGuiBuild.cpp">
       <Filter>src\HelloEngine\ImGui</Filter>
@@ -1421,19 +1433,13 @@
     <ClCompile Include="src\HelloEngine\ImGui\ImGuiLayer.cpp">
       <Filter>src\HelloEngine\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\HelloEngine\Layer.cpp">
-      <Filter>src\HelloEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\HelloEngine\LayerStack.cpp">
-      <Filter>src\HelloEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\HelloEngine\Log.cpp">
-      <Filter>src\HelloEngine</Filter>
-    </ClCompile>
     <ClCompile Include="src\HelloEngine\Renderer\Buffer.cpp">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\HelloEngine\Renderer\Camera.cpp">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\CameraController.cpp">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\HelloEngine\Renderer\RenderCommand.cpp">

@@ -23,9 +23,18 @@ namespace HelloEngine
 		std::string source = ReadFile(filepath);
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
+
+		//使用着色器文件名作为着色器名字
+		//assets/shaders/Texture.glsl
+		size_t lastSlash = filepath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		size_t lastDot = filepath.rfind('.');
+		size_t count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
+		m_Name = filepath.substr(lastSlash, count);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
+		:m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 		shaderSources[GL_VERTEX_SHADER] = vertexShaderSrc;
@@ -138,7 +147,7 @@ namespace HelloEngine
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
 		std::array<GLenum, 2> glShaderIDs;
-		HE_CORE_ASSERT(shaderSources.size() == 2, "Only support vertexshader and fragmentshader!");
+		HE_CORE_ASSERT(shaderSources.size() <= 2, "Only support vertexshader and fragmentshader!");
 		GLint program = glCreateProgram();
 		int shaderID = 0;
 		for (auto kv : shaderSources)
