@@ -6,7 +6,7 @@
 
 namespace HelloEngine
 {
-	Input* Input::s_Instance = new WindowsInput();
+	Scope<Input> Input::s_Instance = CreateScope<WindowsInput>();
 
 	bool HelloEngine::WindowsInput::IsKeyPressedImpl(int keycode)
 	{

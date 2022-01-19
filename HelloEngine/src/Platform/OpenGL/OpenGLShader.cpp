@@ -57,6 +57,26 @@ namespace HelloEngine
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetInt(const std::string& name, int value)
+	{
+		UploadUniformInt(name, value);
+	}
+
+	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
+	{
+		UploadUniformFloat3(name, value);
+	}
+
+	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
+	{
+		UploadUniformFloat4(name, value);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
+	{
+		UploadUniformMat4(name, value);
+	}
+
 	void OpenGLShader::UploadUniformInt(const std::string& name, int value)
 	{
 		int location = glGetUniformLocation(m_ShaderID, name.c_str());
@@ -127,18 +147,21 @@ namespace HelloEngine
 		//#type vertex
 		const char* typeToken = "#type";
 		size_t typeTokenLength = strlen(typeToken);
-		size_t pos = source.find(typeToken, 0);
+		size_t pos = source.find(typeToken, 0); //shader类型声明行的开始
 		while (pos != std::string::npos)
 		{
 			//查找#type vertex的换行符
-			size_t eol = source.find_first_of("\r\n", pos);
-			HE_CORE_ASSERT(eol != std::string::npos, "Syntax error in shader file!");
-			size_t begin = pos + typeTokenLength + 1;
+			size_t eol = source.find_first_of("\r\n", pos); //shader类型声明行的结束
+			HE_CORE_ASSERT(eol != std::string::npos, "Syntax error in shader declaration line!");
+			size_t begin = pos + typeTokenLength + 1; //"#type"之后的shader类型的开始
 			std::string type = source.substr(begin, eol - begin); //取出shader类型
+			HE_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
 
-			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
-			pos = source.find(typeToken, nextLinePos);
-			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - nextLinePos);
+			size_t nextLinePos = source.find_first_not_of("\r\n", eol); //shader类型声明行之后shader代码的开始
+			HE_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error after shader declaration line!")
+			pos = source.find(typeToken, nextLinePos); //下一个shader声明行的开始
+
+			shaderSources[ShaderTypeFromString(type)] = (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
 		}
 
 		return shaderSources;
@@ -210,8 +233,11 @@ namespace HelloEngine
 			return;
 		}
 
-		for(auto id : glShaderIDs)
+		for (auto id : glShaderIDs)
+		{
 			glDetachShader(program, id);
+			glDeleteShader(id);
+		}
 
 		//当一切都没有错误，再将创建的着色程序ID赋给m_ShaderID
 		m_ShaderID = program;

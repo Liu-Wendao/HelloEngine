@@ -16,7 +16,7 @@ namespace HelloEngine
 	class OrthographicCameraController
 	{
 	public:
-		OrthographicCameraController(float aspectRatio = 1.6f, bool isRotation = false);
+		OrthographicCameraController(float aspectRatio = 1.6f, bool isRotation = true);
 
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
@@ -35,7 +35,7 @@ namespace HelloEngine
 		OrthographicCamera m_Camera;
 
 		bool m_IsRotation;
-		float m_CameraRotation = 0.0f;
+		float m_CameraRotation = 0.0f; //角度制，逆时针方向为正
 		glm::vec3 m_CameraPosition = { 0.0f,0.0f,0.0f };
 
 		float m_CameraTranslationSpeed = 2.0f;

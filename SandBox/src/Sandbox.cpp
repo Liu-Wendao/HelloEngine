@@ -1,20 +1,21 @@
 #include "HelloEngine.h"
+#include "HelloEngine/Core/EntryPoint.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
+#include <imgui/imgui.h>
 
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Sandbox2D.h"
 
-#include "imgui/imgui.h"
 class ExampleLayer : public HelloEngine::Layer
 {
 public:
 	ExampleLayer()
-		:Layer("Example"), m_CameraController(1280.0f / 720.0f)
+		:Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
 	{
-		m_VertexArray.reset(HelloEngine::VertexArray::Create());
-
+		m_VertexArray = HelloEngine::VertexArray::Create();
+		
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, -1.0f, 0.8f, 0.2f, 0.8f, 1.0f,
 			 0.5f, -0.5f, -1.0f, 0.2f, 0.3f, 0.8f, 1.0f,
@@ -80,7 +81,39 @@ public:
 			-0.5f,  0.5f, -0.2f, 0.0f, 1.0f
 		};
 
-		m_FlatColorVertexArray.reset(HelloEngine::VertexArray::Create());
+		std::string FlatColorVertexShaderSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string FlatColorFragmentShaderSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+			
+			uniform vec3 u_Color;
+
+			void main()
+			{
+				color = vec4(u_Color, 1.0);
+			}
+		)";
+
+		m_FlatColorVertexArray = HelloEngine::VertexArray::Create();
 
 		HelloEngine::Ref<HelloEngine::VertexBuffer> FlatColorVertexbuffer(HelloEngine::VertexBuffer::Create(FlatColorVertices, sizeof(FlatColorVertices)));
 		FlatColorVertexbuffer->SetLayout({
@@ -93,33 +126,7 @@ public:
 		HelloEngine::Ref<HelloEngine::IndexBuffer> FlatColorIndexbuffer(HelloEngine::IndexBuffer::Create(FlatColorIndices, sizeof(FlatColorIndices) / sizeof(uint32_t)));
 		m_FlatColorVertexArray->SetIndexBuffer(FlatColorIndexbuffer);
 
-		std::string FlatColorVertexShaderSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			void main()
-			{
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
-			}
-		)";
-
-		std::string FlatColorFragmentShaderSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-
-			uniform vec3 u_Color;
-
-			void main()
-			{
-				color = vec4(u_Color, 1.0f);
-			}
-		)";
+	
 
 		m_FlatColorShader = HelloEngine::Shader::Create("FlatColorShader", FlatColorVertexShaderSrc, FlatColorFragmentShaderSrc);
 		HelloEngine::Ref<HelloEngine::Shader> textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
@@ -201,7 +208,8 @@ class Sandbox: public HelloEngine::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 	~Sandbox()
 	{

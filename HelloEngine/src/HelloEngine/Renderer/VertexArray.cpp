@@ -6,7 +6,7 @@
 
 namespace HelloEngine
 {
-	VertexArray* VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -17,7 +17,7 @@ namespace HelloEngine
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return new OpenGLVertexArray();
+				return CreateRef<OpenGLVertexArray>();
 			}			
 		}
 

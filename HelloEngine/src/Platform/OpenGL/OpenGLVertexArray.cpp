@@ -63,7 +63,7 @@ namespace HelloEngine
 				ShaderDataTypeToOpenGLBaseType(element.Type),
 				element.Normalized ? GL_TRUE : GL_FALSE,
 				stride,
-				(const void*)(intptr_t)element.Offset);
+				(const void*)element.Offset);
 			m_VertexBufferIndex++;
 		}
 

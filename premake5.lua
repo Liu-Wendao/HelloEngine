@@ -88,7 +88,6 @@ project "HelloEngine"
 		systemversion "latest"
 		defines
 		{
-			"HE_PLATFORM_WINDOWS",
 			"HE_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
@@ -141,11 +140,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		systemversion "latest"
-
-		defines
-		{
-			"HE_PLATFORM_WINDOWS"
-		}
 
 	filter "configurations:Debug"
 		defines "HE_DEBUG"

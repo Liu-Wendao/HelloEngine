@@ -14,6 +14,7 @@
 
 //----------------Renderer-------------------
 #include "HelloEngine/Renderer/Renderer.h"
+#include "HelloEngine/Renderer/Renderer2D.h"
 #include "HelloEngine/Renderer/RenderCommand.h"
 
 #include "HelloEngine/Renderer/Buffer.h"
@@ -23,8 +24,4 @@
 
 #include "HelloEngine/Renderer/Camera.h"
 #include "HelloEngine/Renderer/CameraController.h"
-//-------------------------------------------
-
-//---------------Entry Point-----------------
-#include "HelloEngine/Core/EntryPoint.h"
 //-------------------------------------------
