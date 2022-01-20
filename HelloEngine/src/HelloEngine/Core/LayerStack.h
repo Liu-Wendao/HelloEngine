@@ -2,15 +2,15 @@
 
 #include <vector>
 
-#include "Core.h"
-#include "Layer.h"
+#include "HelloEngine/Core/Core.h"
+#include "HelloEngine/Core/Layer.h"
 
 namespace HelloEngine
 {
-	class HelloEngine_API LayerStack
+	class LayerStack
 	{
 	public:
-		LayerStack();
+		LayerStack() = default;
 		~LayerStack();
 
 		void PushLayer(Layer* layer);		

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Core.h"
+#include "HelloEngine/Core/Core.h"
 #include "HelloEngine/Events/Event.h"
 
 namespace HelloEngine
 {
-	struct HelloEngine_API WindowProps
+	struct WindowProps
 	{
 		std::string Title;
 		unsigned int Width;
@@ -17,7 +17,7 @@ namespace HelloEngine
 			: Title(title), Width(width), Height(height) {}
 	};
 
-	class HelloEngine_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
@@ -37,6 +37,6 @@ namespace HelloEngine
 
 		virtual void* GetNativeWindow() const = 0;
 
-		static Window* Create(const WindowProps& props = WindowProps());
+		static Scope<Window> Create(const WindowProps& props = WindowProps());
 	};
 }

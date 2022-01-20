@@ -1,5 +1,7 @@
 #pragma once
 
+#include "HelloEngine/Core/Core.h"
+
 #include "HelloEngine/Core/Application.h"
 #include "HelloEngine/Core/Log.h"
 #include "HelloEngine/Core/Layer.h"

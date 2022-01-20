@@ -4,7 +4,7 @@
 
 namespace HelloEngine
 {
-	class HelloEngine_API Input
+	class Input
 	{
 	protected:
 		Input() = default;

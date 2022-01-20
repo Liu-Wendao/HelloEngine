@@ -1,7 +1,7 @@
 #include "hepch.h"
-#include "Texture.h"
+#include "HelloEngine/Renderer/Texture.h"
 
-#include "Renderer.h"
+#include "HelloEngine/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace HelloEngine
@@ -13,11 +13,11 @@ namespace HelloEngine
 			case RendererAPI::API::None:
 			{
 				HE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
-					return nullptr;
+				return nullptr;
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return std::make_shared<OpenGLTexture2D>(path);
+				return CreateRef<OpenGLTexture2D>(path);
 			}
 		}
 
@@ -32,11 +32,11 @@ namespace HelloEngine
 			case RendererAPI::API::None:
 			{
 				HE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
-					return nullptr;
+				return nullptr;
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return std::make_shared<OpenGLTexture2D>(width, height);
+				return CreateRef<OpenGLTexture2D>(width, height);
 			}
 		}
 

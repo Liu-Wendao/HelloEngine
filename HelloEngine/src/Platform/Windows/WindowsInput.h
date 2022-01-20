@@ -1,5 +1,4 @@
 #pragma once
-
 #include "HelloEngine/Core/Input.h"
 
 namespace HelloEngine

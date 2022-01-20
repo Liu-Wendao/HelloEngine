@@ -1371,6 +1371,9 @@
     <ClInclude Include="src\HelloEngine\Renderer\Renderer.h">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\HelloEngine\Renderer\Renderer2D.h">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\HelloEngine\Renderer\RendererAPI.h">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClInclude>
@@ -1410,7 +1413,6 @@
     <ClInclude Include="src\hepch.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\HelloEngine\Renderer\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\stb_image\stb_image.cpp">
@@ -1443,10 +1445,16 @@
     <ClCompile Include="src\HelloEngine\Renderer\CameraController.cpp">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\GraphicsContext.cpp">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\HelloEngine\Renderer\RenderCommand.cpp">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\HelloEngine\Renderer\Renderer.cpp">
+      <Filter>src\HelloEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelloEngine\Renderer\Renderer2D.cpp">
       <Filter>src\HelloEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\HelloEngine\Renderer\RendererAPI.cpp">
@@ -1488,6 +1496,5 @@
     <ClCompile Include="src\hepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\HelloEngine\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

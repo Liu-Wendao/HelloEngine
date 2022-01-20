@@ -1,9 +1,8 @@
 #pragma once
-
 #include "HelloEngine/Core/Window.h"
 #include "HelloEngine/Renderer/GraphicsContext.h"
 
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 namespace HelloEngine
 {

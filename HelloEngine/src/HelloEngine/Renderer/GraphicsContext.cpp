@@ -1,24 +1,24 @@
 #include "hepch.h"
-#include "HelloEngine/Renderer/VertexArray.h"
+#include "HelloEngine/Renderer/GraphicsContext.h"
 
 #include "HelloEngine/Renderer/Renderer.h"
-#include "Platform/OpenGL/OpenGLVertexArray.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace HelloEngine
 {
-	Ref<VertexArray> VertexArray::Create()
+	Scope<GraphicsContext> GraphicsContext::Create(void* window)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::API::None: 
+			case RendererAPI::API::None:
 			{
 				HE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
 				return nullptr;
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return CreateRef<OpenGLVertexArray>();
-			}			
+				return CreateScope<OpenGLContext>(static_cast<GLFWwindow*>(window));
+			}
 		}
 
 		HE_CORE_ASSERT(false, "Unknown RendererAPI");

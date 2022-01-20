@@ -1,5 +1,4 @@
 #pragma once
-
 #include "hepch.h"
 #include "HelloEngine/Core/Core.h"
 
@@ -33,7 +32,7 @@ namespace HelloEngine
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
 	//抽象事件类 
-	class HelloEngine_API Event
+	class Event
 	{
 		friend class EventDispatcher;
 	public:
@@ -53,7 +52,7 @@ namespace HelloEngine
 	};
 
 	//事件调度器 
-	class HelloEngine_API EventDispatcher
+	class EventDispatcher
 	{
 	public:
 		EventDispatcher(Event& event)

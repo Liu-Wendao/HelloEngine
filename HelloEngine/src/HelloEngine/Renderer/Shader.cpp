@@ -1,7 +1,7 @@
 #include "hepch.h"
-#include "Shader.h"
+#include "HelloEngine/Renderer/Shader.h"
 
-#include "Renderer.h"
+#include "HelloEngine/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
 namespace HelloEngine
@@ -20,7 +20,7 @@ namespace HelloEngine
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return std::make_shared<OpenGLShader>(filepath);
+				return CreateRef<OpenGLShader>(filepath);
 			}
 		}
 
@@ -39,7 +39,7 @@ namespace HelloEngine
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return std::make_shared<OpenGLShader>(name, vertexShaderSrc, fragmentShaderSrc);
+				return CreateRef<OpenGLShader>(name, vertexShaderSrc, fragmentShaderSrc);
 			}
 		}
 

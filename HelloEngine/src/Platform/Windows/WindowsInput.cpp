@@ -1,8 +1,8 @@
 #include "hepch.h"
-#include "WindowsInput.h"
+#include "Platform/Windows/WindowsInput.h"
 
 #include "HelloEngine/Core/Application.h"
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 namespace HelloEngine
 {

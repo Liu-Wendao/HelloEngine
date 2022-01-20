@@ -88,7 +88,6 @@ project "HelloEngine"
 		systemversion "latest"
 		defines
 		{
-			"HE_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 

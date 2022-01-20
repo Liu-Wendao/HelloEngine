@@ -1,5 +1,5 @@
 #include "hepch.h"
-#include "Camera.h"
+#include "HelloEngine/Renderer/Camera.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 namespace HelloEngine

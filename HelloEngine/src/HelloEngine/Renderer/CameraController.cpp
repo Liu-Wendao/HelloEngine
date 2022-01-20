@@ -1,5 +1,5 @@
 #include "hepch.h"
-#include "CameraController.h"
+#include "HelloEngine/Renderer/CameraController.h"
 
 #include "HelloEngine/Core/Input.h"
 #include "HelloEngine/Core/KeyCodes.h"

@@ -1,7 +1,6 @@
 #pragma once
-
-#include "Camera.h"
-#include "Texture.h"
+#include "HelloEngine/Renderer/Camera.h"
+#include "HelloEngine/Renderer/Texture.h"
 
 namespace HelloEngine
 {

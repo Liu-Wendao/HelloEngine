@@ -1,7 +1,7 @@
 #pragma once
-#include <glm/glm.hpp>
+#include "HelloEngine/Renderer/VertexArray.h"
 
-#include "VertexArray.h"
+#include <glm/glm.hpp>
 
 namespace HelloEngine
 {
@@ -18,9 +18,11 @@ namespace HelloEngine
 		virtual void SetClearColor(const glm::vec4& color) const = 0;
 		virtual void Clear() const = 0;
 
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) const = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) const = 0;
 
 		inline static API GetAPI() { return s_API; }
+		
+		static Scope<RendererAPI> Create();
 	private:
 		static API s_API;
 	};

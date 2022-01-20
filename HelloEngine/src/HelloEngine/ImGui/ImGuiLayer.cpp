@@ -1,14 +1,13 @@
 #include "hepch.h"
-#include "ImGuiLayer.h"
-
-#include "imgui.h"
-#include "backends/imgui_impl_opengl3.h"
-#include "backends/imgui_impl_glfw.h"
-
+#include "HelloEngine/ImGui/ImGuiLayer.h"
 #include "HelloEngine/Core/Application.h"
 
+#include <imgui.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <backends/imgui_impl_glfw.h>
+
 //ÁÙÊ±µÄ
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 namespace HelloEngine
 {
@@ -53,12 +52,6 @@ namespace HelloEngine
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
-	}
-
-	void ImGuiLayer::OnImGuiRender()
-	{
-		//static bool show = true;
-		//ImGui::ShowDemoWindow(&show);
 	}
 
 	void ImGuiLayer::Begin()

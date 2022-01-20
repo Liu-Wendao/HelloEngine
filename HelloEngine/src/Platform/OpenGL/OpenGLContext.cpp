@@ -1,7 +1,7 @@
 #include "hepch.h"
-#include "OpenGLContext.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 namespace HelloEngine
 {

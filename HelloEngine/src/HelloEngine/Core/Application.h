@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core.h"
-#include "Window.h"
-#include "LayerStack.h"
+#include "HelloEngine/Core/Core.h"
+#include "HelloEngine/Core/Window.h"
+#include "HelloEngine/Core/LayerStack.h"
 #include "HelloEngine/Events/Event.h"
 #include "HelloEngine/Events/ApplicationEvent.h"
 
@@ -10,11 +10,11 @@
 
 namespace HelloEngine
 { 
-	class HelloEngine_API Application
+	class Application
 	{
 	public:
 		Application();
-		virtual ~Application() = default;
+		virtual ~Application();
 		
 		void Run();
 
@@ -33,7 +33,7 @@ namespace HelloEngine
 		bool m_Running = true;
 		bool m_Minimized = false;
 
-		std::unique_ptr<Window> m_Window;
+		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 

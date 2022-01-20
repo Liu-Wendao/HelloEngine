@@ -1,12 +1,11 @@
 #pragma once
-
-#include <glm/glm.hpp>
-
-#include "HelloEngine/Renderer/Camera.h"
 #include "HelloEngine/Core/Timestep.h"
+#include "HelloEngine/Renderer/Camera.h"
 
 #include "HelloEngine/Events/MouseEvent.h"
 #include "HelloEngine/Events/ApplicationEvent.h"
+
+#include <glm/glm.hpp>
 
 namespace HelloEngine
 {

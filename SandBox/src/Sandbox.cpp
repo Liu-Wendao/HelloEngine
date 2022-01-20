@@ -5,7 +5,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui.h>
 
-#include "Platform/OpenGL/OpenGLShader.h"
 #include "Sandbox2D.h"
 
 class ExampleLayer : public HelloEngine::Layer
@@ -22,8 +21,7 @@ public:
 			 0.0f,  0.5f, -1.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		HelloEngine::Ref<HelloEngine::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(HelloEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		HelloEngine::Ref<HelloEngine::VertexBuffer> vertexBuffer = HelloEngine::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		HelloEngine::BufferLayout layout = {
 			{HelloEngine::ShaderDataType::Float3, "a_Position"},
@@ -33,8 +31,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		HelloEngine::Ref<HelloEngine::IndexBuffer> indexBuffer;
-		indexBuffer.reset(HelloEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		HelloEngine::Ref<HelloEngine::IndexBuffer> indexBuffer = HelloEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		std::string vertexShaderSrc = R"(
@@ -115,7 +112,7 @@ public:
 
 		m_FlatColorVertexArray = HelloEngine::VertexArray::Create();
 
-		HelloEngine::Ref<HelloEngine::VertexBuffer> FlatColorVertexbuffer(HelloEngine::VertexBuffer::Create(FlatColorVertices, sizeof(FlatColorVertices)));
+		HelloEngine::Ref<HelloEngine::VertexBuffer> FlatColorVertexbuffer = HelloEngine::VertexBuffer::Create(FlatColorVertices, sizeof(FlatColorVertices));
 		FlatColorVertexbuffer->SetLayout({
 			{ HelloEngine::ShaderDataType::Float3, "a_Position" },
 			{ HelloEngine::ShaderDataType::Float2, "a_TexCoord" }
@@ -123,10 +120,8 @@ public:
 		m_FlatColorVertexArray->AddVertexBuffer(FlatColorVertexbuffer);
 
 		uint32_t FlatColorIndices[6] = { 0,1,2,2,3,0 };
-		HelloEngine::Ref<HelloEngine::IndexBuffer> FlatColorIndexbuffer(HelloEngine::IndexBuffer::Create(FlatColorIndices, sizeof(FlatColorIndices) / sizeof(uint32_t)));
+		HelloEngine::Ref<HelloEngine::IndexBuffer> FlatColorIndexbuffer = HelloEngine::IndexBuffer::Create(FlatColorIndices, sizeof(FlatColorIndices) / sizeof(uint32_t));
 		m_FlatColorVertexArray->SetIndexBuffer(FlatColorIndexbuffer);
-
-	
 
 		m_FlatColorShader = HelloEngine::Shader::Create("FlatColorShader", FlatColorVertexShaderSrc, FlatColorFragmentShaderSrc);
 		HelloEngine::Ref<HelloEngine::Shader> textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
@@ -134,8 +129,8 @@ public:
 		m_Texture = HelloEngine::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = HelloEngine::Texture2D::Create("assets/textures/ChernoLogo.png");
 
-		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		textureShader->Bind();
+		textureShader->SetInt("u_Texture", 0);
 	}
 
 	virtual void OnUpdate(const HelloEngine::Timestep& ts) override
@@ -149,8 +144,8 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.0f));
 
-		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_FlatColorShader)->Bind();
-		std::dynamic_pointer_cast<HelloEngine::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_FlatColor);
+		m_FlatColorShader->Bind();
+		m_FlatColorShader->SetFloat3("u_Color", m_FlatColor);
 
 		for (int y = 0; y < 20; y++)
 		{

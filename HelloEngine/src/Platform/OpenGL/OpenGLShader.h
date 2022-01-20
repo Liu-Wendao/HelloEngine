@@ -1,7 +1,7 @@
 #pragma once
-#include <glm/glm.hpp>
-
 #include "HelloEngine/Renderer/Shader.h"
+
+#include <glm/glm.hpp>
 
 // TOD0: REMOVE!
 using GLenum = unsigned int;

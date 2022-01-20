@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Core.h"
-#include "Timestep.h"
+#include "HelloEngine/Core/Core.h"
+#include "HelloEngine/Core/Timestep.h"
 #include "HelloEngine/Events/Event.h"
 
 namespace HelloEngine
 {
-	class HelloEngine_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");
