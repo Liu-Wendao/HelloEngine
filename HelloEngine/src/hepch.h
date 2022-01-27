@@ -15,6 +15,8 @@
 
 #include "HelloEngine/Core/Log.h"
 
+#include "HelloEngine/Debug/Instrumentor.h"
+
 #ifdef HE_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif 

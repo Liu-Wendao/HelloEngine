@@ -18,6 +18,8 @@ namespace HelloEngine
 
 	void ImGuiLayer::OnAttach()
 	{
+		HE_PROFILE_FUNCTION();
+
 		//设置ImGui上下文
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -49,6 +51,8 @@ namespace HelloEngine
 
 	void ImGuiLayer::OnDetach()
 	{
+		HE_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
@@ -56,6 +60,8 @@ namespace HelloEngine
 
 	void ImGuiLayer::Begin()
 	{
+		HE_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -63,6 +69,8 @@ namespace HelloEngine
 
 	void ImGuiLayer::End()
 	{
+		HE_PROFILE_FUNCTION();
+
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
